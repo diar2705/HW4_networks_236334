@@ -15,6 +15,7 @@ os.makedirs(output_dir, exist_ok=True)
 # Run the simulation for each T value and collect the results
 for T in T_values:
     total_wait_time = 0
+    total_service_time = 0
     total_runs = 10
     
     for i in range(total_runs):  # Run each T value 10 times
@@ -30,6 +31,8 @@ for T in T_values:
                 accepted, rejected, curr_time, avg_wait_time, avg_service_time = parts
                 avg_wait_time = float(avg_wait_time)
                 total_wait_time += avg_wait_time
+                avg_service_time = float(avg_service_time)
+                total_service_time += avg_service_time
             else:
                 print(f"Unexpected output format: {output}")
         
@@ -40,14 +43,16 @@ for T in T_values:
     # Calculate average wait time for this T
     if total_runs > 0:
         average_wait_time = total_wait_time / total_runs
+        average_service_time = total_service_time / total_runs
     else:
         average_wait_time = 0
+        average_service_time = 0
     
     # Store the result in the list
     results.append({
         "T": T,
-        "Average Wait Time": average_wait_time,
-        "Wait Time": total_wait_time
+        "Average Wait Time": average_wait_time + average_service_time,
+        "Wait Time": total_wait_time + total_service_time
     })
 
 # Create a DataFrame from the results
