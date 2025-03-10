@@ -1,3 +1,6 @@
+# this is a tester to test the code and to get the average results
+# the results are outputted into an xlsx file called "average_wait_times.xlsx"
+
 import subprocess
 import pandas as pd
 import os
